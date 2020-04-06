@@ -1,0 +1,28 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: epelcentos8
+    image: registry.gitlab.com/dvonessen/docker-ansible-nonroot-centos:8
+    pre_build_image: true
+  - name: epelcentos7
+    image: registry.gitlab.com/dvonessen/docker-ansible-nonroot-centos:7
+    pre_build_image: true
+  - name: epelcentos6
+    image: registry.gitlab.com/dvonessen/docker-ansible-nonroot-centos:6
+    pre_build_image: true
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      stdout_callback: yaml
+      interpreter_python: auto_silent
+verifier:
+  name: ansible
+lint: |
+  set -e
+  yamllint -c .yamllint .
+  flake8
+  ansible-lint

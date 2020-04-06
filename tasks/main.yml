@@ -1,0 +1,6 @@
+---
+- name: import epel.yml
+  import_tasks: epel.yml
+  tags:
+    - epel_all
+    - epel_install
