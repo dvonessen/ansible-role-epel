@@ -7,8 +7,10 @@
   register: epel_install_epel_package
   until: epel_install_epel_package is succeeded
   retries: 5
-  notify:
-    - yum update cache
+
+- name: yum update cache
+  yum:
+    update_cache: yes
 
 - name: importing EPEL GPG key
   rpm_key:
